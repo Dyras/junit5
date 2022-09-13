@@ -9,7 +9,7 @@ public class AuthenticateTest {
     private final Authenticate authenticate = new Authenticate();
 
     @ParameterizedTest
-    @CsvSource(value = {"anna, losen, true" , "berit, 123456, true", "kalle, password, false" } )
+    @CsvSource(value = {"anna, losen, true" , "berit, 123456, true", "kalle, passwor, false" } )
     public void authenticateTest(String a, String b, boolean expected){
         //Given
 
