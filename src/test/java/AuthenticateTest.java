@@ -16,9 +16,8 @@ public class AuthenticateTest {
         // String a och String b är given
 
         //When
-        String returnedToken = authenticate.TokenCheck(a, b);
+        String returnedToken = authenticate.TokenCreator(a, b);
         boolean result = authenticate.UserValidation(a, b, returnedToken);
-        System.out.println(result);
 
         //Then
         assertEquals(expected, result);

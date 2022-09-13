@@ -5,7 +5,8 @@ import java.util.*;
 
 public class Authenticate {
     final List<User> userList = Arrays.asList(new User("anna", "losen"), new User("berit", "123456"), new User("kalle", "password"));
-    final private Key key = Keys.hmacShaKeyFor("DetHärÄrMinSuperHemligaHemlighetSomIngenVet".getBytes());
+    final private String randomText = (UUID.randomUUID().toString());
+    final private Key key = Keys.hmacShaKeyFor(randomText.getBytes());
 
     public boolean UserValidation(String username, String password, String token ) {
         String validOrNot = Jwts.parserBuilder()
@@ -14,11 +15,10 @@ public class Authenticate {
                 .parseClaimsJws(token)
                 .getBody()
                 .get(password, String.class);
-        System.out.println(validOrNot);
-        System.out.println(username);
         if (Objects.equals(validOrNot, username))
         {
-            System.out.println("Token validerad. Korrekt token!");
+            System.out.println("Din token är: " + token);
+            System.out.println("Token validerad. Din token var Giltig!");
             return true;
         }
         else
@@ -26,12 +26,10 @@ public class Authenticate {
         return false;
     }
 
-    public String TokenCheck(String username, String password) {
+    public String TokenCreator(String username, String password) {
 
             for (User user : userList) {
                 if (username.equals(user.username) && password.equals(user.password)) {
-
-
                     String token = Jwts.builder()
                             .setSubject(username)
                             .addClaims(Map.of(user.password, user.username))
@@ -42,6 +40,7 @@ public class Authenticate {
 
                 }
             }
+            // Det här resulterar i en exception då denna token har för få kommatecken för en riktig token
             return "falsetoken";
         }
         }
