@@ -9,14 +9,16 @@ public class AuthenticateTest {
     private final Authenticate authenticate = new Authenticate();
 
     @ParameterizedTest
-    @CsvSource(value = {"anna, losen, true" , "berit, 123456, true", "kalle, passwor, false" } )
+    @CsvSource(value = {"anna, losen, true" , "berit, 123456, true", "kalle, passwor, true" } )
     public void authenticateTest(String a, String b, boolean expected){
         //Given
 
         // String a och String b är given
 
         //When
-        boolean result = authenticate.UserValidation(a, b);
+        String returnedToken = authenticate.TokenCheck(a, b);
+        boolean result = authenticate.UserValidation(a, b, returnedToken);
+        System.out.println(result);
 
         //Then
         assertEquals(expected, result);
